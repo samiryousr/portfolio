@@ -7,8 +7,8 @@ import ThemeToggle from '@/components/ThemeToggle';
 
 const navLinks = [
   { href: '/#hero', label: 'Home' },
-  { href: '/#skills', label: 'Skills' },
   { href: '/#projects', label: 'Projects' },
+  { href: '/#skills', label: 'Skills' },
   { href: '/#contact', label: 'Contact' },
   { href: '/cv', label: 'CV' },
 ];
@@ -51,9 +51,12 @@ export default function Navbar() {
       const activeSection = sectionLinks
         .map(({ id, href }) => ({
           href,
-          top: document.getElementById(id)?.getBoundingClientRect().top ?? Infinity,
+          top:
+            (document.getElementById(id)?.getBoundingClientRect().top ??
+              Infinity) + window.scrollY,
         }))
-        .filter(({ top }) => top + window.scrollY <= marker)
+        .filter(({ top }) => top <= marker)
+        .sort((first, second) => first.top - second.top)
         .at(-1);
 
       setActiveSectionHref(activeSection?.href ?? '/#hero');

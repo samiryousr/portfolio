@@ -416,8 +416,8 @@ body {
 }
 
 .skills-category-card {
-  width: calc(100% - 2.25rem);
-  margin-left: 2.25rem;
+  width: calc(100% - 1rem);
+  margin-left: 1rem;
   background-image:
     linear-gradient(145deg, rgb(18 17 19 / 94%), rgb(5 5 7 / 94%));
   box-shadow: 0 16px 40px rgb(0 0 0 / 28%);
@@ -746,6 +746,11 @@ body {
 
   .skills-timeline {
     gap: 2rem;
+  }
+
+  .skills-category-card {
+    width: calc(100% - 2.25rem);
+    margin-left: 2.25rem;
   }
 
   .cv-document {
