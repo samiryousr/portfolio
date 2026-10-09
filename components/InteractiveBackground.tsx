@@ -1,10 +1,17 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import useFinePointer from '@/hooks/useFinePointer';
 
 const PixelBlast = dynamic(() => import('./PixelBlast'), { ssr: false });
 
 export default function InteractiveBackground() {
+  const hasFinePointer = useFinePointer();
+
+  if (!hasFinePointer) {
+    return <div aria-hidden="true" className="mobile-background-fallback" />;
+  }
+
   return (
     <div
       aria-hidden="true"

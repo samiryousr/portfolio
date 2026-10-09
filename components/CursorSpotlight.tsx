@@ -1,15 +1,15 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import useFinePointer from '@/hooks/useFinePointer';
 
 export default function CursorSpotlight() {
+  const hasFinePointer = useFinePointer();
   const spotlightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const spotlight = spotlightRef.current;
-    if (!spotlight || !window.matchMedia('(pointer: fine)').matches) {
-      return;
-    }
+    if (!spotlight || !hasFinePointer) return;
 
     let targetX = 0;
     let targetY = 0;
@@ -45,7 +45,9 @@ export default function CursorSpotlight() {
       window.removeEventListener('pointermove', handlePointerMove);
       if (animationFrame) cancelAnimationFrame(animationFrame);
     };
-  }, []);
+  }, [hasFinePointer]);
+
+  if (!hasFinePointer) return null;
 
   return <div ref={spotlightRef} aria-hidden="true" className="global-spotlight" />;
 }

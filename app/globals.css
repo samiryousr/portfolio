@@ -1050,11 +1050,38 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 280ms ease-out;
-  will-change: transform, opacity;
 }
 
 .global-spotlight.is-active {
   opacity: 1;
+  will-change: transform, opacity;
+}
+
+.mobile-background-fallback {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 22%, rgb(107 29 40 / 12%), transparent 44%),
+    radial-gradient(ellipse at 85% 72%, rgb(107 29 40 / 8%), transparent 48%),
+    #09090b;
+  pointer-events: none;
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .pixel-blast-container,
+  .pixel-blast-container canvas,
+  .grainient-container canvas {
+    display: none !important;
+  }
+
+  .global-spotlight {
+    display: none;
+  }
+
+  .project-preview-image {
+    transition: none;
+  }
 }
 
 /* ─── Selection ─── */

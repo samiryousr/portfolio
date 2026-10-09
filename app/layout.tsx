@@ -3,9 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/Navbar';
 import SiteFooter from '@/components/SiteFooter';
-import InteractiveBackground from '@/components/InteractiveBackground';
-import CursorSpotlight from '@/components/CursorSpotlight';
-import CustomCursor from '@/components/CustomCursor';
+import DesktopEffects from '@/components/DesktopEffects';
 import './globals.css';
 
 const geistSans = Geist({
@@ -64,9 +62,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <InteractiveBackground />
-        <CursorSpotlight />
-        <CustomCursor />
+        <DesktopEffects />
         <ThemeProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

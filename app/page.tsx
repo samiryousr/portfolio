@@ -1,11 +1,13 @@
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { projects } from '@/data/projects';
 import type { Project } from '@/types';
 import ProjectTimelineConnector from '@/components/ProjectTimelineConnector';
-import SkillsGrid from '@/components/SkillsGrid';
 import ScrollHighlightText from '@/components/ScrollHighlightText';
 import PortfolioTicker from '@/components/PortfolioTicker';
 import ScrollShimmerHeading from '@/components/ScrollShimmerHeading';
+
+const SkillsGrid = dynamic(() => import('@/components/SkillsGrid'));
 
 function ProjectCard({ project }: { project: Project }) {
   return (
@@ -32,7 +34,8 @@ function ProjectCard({ project }: { project: Project }) {
           alt={`${project.title} project preview`}
           fill
           sizes="(max-width: 767px) 88vw, (max-width: 1279px) 46vw, 464px"
-          className="project-preview-image object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          loading="lazy"
+          className="project-preview-image object-cover transition-transform duration-500 md:group-hover:scale-[1.04]"
         />
         <span className="project-preview-label absolute bottom-3 left-3 z-10 font-mono text-[9px] uppercase tracking-[0.2em] text-white/70">
           Project preview

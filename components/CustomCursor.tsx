@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
+import useFinePointer from '@/hooks/useFinePointer';
 
 export default function CustomCursor() {
+  const hasFinePointer = useFinePointer();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const opacity = useMotionValue(0);
   const [isPointer, setIsPointer] = useState(false);
 
   useEffect(() => {
-    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (!hasFinePointer) return;
 
     const handlePointerMove = (event: PointerEvent) => {
       if (event.pointerType === 'touch') return;
@@ -31,7 +33,9 @@ export default function CustomCursor() {
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
     return () => window.removeEventListener('pointermove', handlePointerMove);
-  }, [opacity, x, y]);
+  }, [hasFinePointer, opacity, x, y]);
+
+  if (!hasFinePointer) return null;
 
   return (
     <motion.svg

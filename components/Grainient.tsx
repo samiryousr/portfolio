@@ -3,6 +3,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
+import useFinePointer from '@/hooks/useFinePointer';
 import './Grainient.css';
 
 export interface GrainientProps {
@@ -172,10 +173,11 @@ export default function Grainient({
   className = '',
 }: GrainientProps) {
   const containerRef = useRef(null);
+  const hasFinePointer = useFinePointer();
 
   // Effect 1: build WebGL context once, pause when offscreen / tab hidden
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (!hasFinePointer || typeof window === 'undefined') return;
     const container = containerRef.current;
     if (!container) return;
 
@@ -300,7 +302,7 @@ export default function Grainient({
         /* ignore */
       }
     };
-  }, []); // renderer created once
+  }, [hasFinePointer]); // renderer created once
 
   // Effect 2: sync props to uniforms — zero GPU cost, no teardown
   useEffect(() => {
@@ -358,6 +360,8 @@ export default function Grainient({
     color3,
     lightMode,
   ]);
+
+  if (!hasFinePointer) return null;
 
   return (
     <div
