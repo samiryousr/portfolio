@@ -3,12 +3,8 @@
 import { useRef } from 'react';
 import {
   motion,
-  useMotionValue,
-  useMotionValueEvent,
-  useReducedMotion,
   useScroll,
   useTransform,
-  type MotionValue,
 } from 'framer-motion';
 
 const text =
@@ -19,12 +15,10 @@ function ScrollWord({
   word,
   index,
   progress,
-  reduceMotion,
 }: {
   word: string;
   index: number;
-  progress: MotionValue<number>;
-  reduceMotion: boolean;
+  progress: ReturnType<typeof useScroll>['scrollYProgress'];
 }) {
   const start = index / words.length;
   const end = (index + 1) / words.length;
@@ -43,10 +37,8 @@ function ScrollWord({
       data-scroll-word
       aria-hidden="true"
       style={{
-        opacity: reduceMotion ? 1 : opacity,
-        backgroundImage: reduceMotion
-          ? 'repeating-linear-gradient(to bottom, transparent 0 5px, rgb(9 9 11 / 7%) 5px 6px), linear-gradient(#f5f3ed, #f5f3ed)'
-          : backgroundImage,
+        opacity,
+        backgroundImage,
       }}
     >
       {word}
@@ -57,40 +49,18 @@ function ScrollWord({
 
 export default function ScrollHighlightText() {
   const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start start', 'end end'],
-  });
-  const revealedProgress = useMotionValue(0);
-  const previousProgress = useRef(0);
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    if (latest < previousProgress.current) {
-      revealedProgress.set(latest);
-    } else {
-      revealedProgress.set(Math.max(revealedProgress.get(), latest));
-    }
-    previousProgress.current = latest;
+    offset: ['start start', 'end 130%'],
   });
 
   return (
     <section
       ref={sectionRef}
-      className={`scroll-highlight-section mx-auto w-full max-w-5xl ${
-        reduceMotion
-          ? 'px-6 py-12 sm:px-8 md:py-20 lg:px-12'
-          : 'min-h-[220vh] px-6 sm:px-8 lg:px-12'
-      }`}
+      className="scroll-highlight-section mx-auto w-full max-w-5xl px-6 sm:px-8 lg:px-12"
       aria-label="About my approach"
     >
-      <div
-        className={
-          reduceMotion
-            ? ''
-            : 'sticky top-0 flex h-screen items-center justify-center'
-        }
-      >
+      <div className="sticky top-0 flex h-screen items-center justify-center">
         <p
           className="scroll-highlight-copy text-center"
           aria-label={text}
@@ -100,8 +70,7 @@ export default function ScrollHighlightText() {
               key={`${word}-${index}`}
               word={word}
               index={index}
-              progress={revealedProgress}
-              reduceMotion={reduceMotion}
+              progress={scrollYProgress}
             />
           ))}
         </p>

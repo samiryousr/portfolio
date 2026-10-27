@@ -13,6 +13,16 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: 'famex',
+    title: 'FameX — Arcade Studio',
+    description:
+      'An Arabic-first digital studio website with an arcade-inspired identity, presenting strategy, design, development, and growth services through an interactive experience.',
+    tags: ['Next.js', 'Arabic RTL', 'Interactive UI', 'Digital Studio'],
+    image: '/projects/famex-preview.png',
+    liveDemoUrl: 'https://fame-x-two.vercel.app/#home',
+    featured: true,
+  },
+  {
     id: 'zakhrafa-home',
     title: 'Zakhrafa Home',
     description:

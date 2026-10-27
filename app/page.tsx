@@ -6,6 +6,7 @@ import ProjectTimelineConnector from '@/components/ProjectTimelineConnector';
 import ScrollHighlightText from '@/components/ScrollHighlightText';
 import PortfolioTicker from '@/components/PortfolioTicker';
 import ScrollShimmerHeading from '@/components/ScrollShimmerHeading';
+import ContactSection from '@/components/ContactSection';
 
 const SkillsGrid = dynamic(() => import('@/components/SkillsGrid'));
 
@@ -29,14 +30,25 @@ function ProjectCard({ project }: { project: Project }) {
         aria-label={`Open ${project.title} live demo`}
         className="project-preview group/preview relative block h-28 overflow-hidden border-b border-[#1a1a20] bg-[#09090b] sm:h-36 lg:h-40"
       >
-        <Image
-          src={project.image}
-          alt={`${project.title} project preview`}
-          fill
-          sizes="(max-width: 767px) 88vw, (max-width: 1279px) 46vw, 464px"
-          loading="lazy"
-          className="project-preview-image object-cover transition-transform duration-500 md:group-hover:scale-[1.04]"
-        />
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={`${project.title} project preview`}
+            fill
+            sizes="(max-width: 767px) 88vw, (max-width: 1279px) 46vw, 464px"
+            loading="lazy"
+            className="project-preview-image object-cover transition-transform duration-500 md:group-hover:scale-[1.04]"
+          />
+        ) : (
+          <span className="flex h-full flex-col justify-center bg-[radial-gradient(ellipse_at_75%_25%,rgba(216,58,67,0.28),transparent_45%),linear-gradient(135deg,#171114,#09090b_65%)] px-6">
+            <span className="font-mono text-[9px] uppercase tracking-[0.28em] text-[#f17a82]">
+              Digital / Arcade Studio
+            </span>
+            <span className="mt-1 text-2xl font-black tracking-[0.18em] text-white sm:text-3xl">
+              FAMEX
+            </span>
+          </span>
+        )}
         <span className="project-preview-label absolute bottom-3 left-3 z-10 font-mono text-[9px] uppercase tracking-[0.2em] text-white/70">
           Project preview
         </span>
@@ -70,13 +82,14 @@ function ProjectCard({ project }: { project: Project }) {
 
         {/* Links */}
         <div className="mt-1 flex items-center gap-3 border-t border-[#1a1a20] pt-2 sm:mt-2 sm:pt-3">
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            id={`project-${project.id}-github`}
-            className="flex items-center gap-1.5 text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-200"
-          >
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              id={`project-${project.id}-github`}
+              className="flex items-center gap-1.5 text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-200"
+            >
             <svg
               className="w-4 h-4"
               fill="currentColor"
@@ -89,8 +102,9 @@ function ProjectCard({ project }: { project: Project }) {
                 clipRule="evenodd"
               />
             </svg>
-            GitHub
-          </a>
+              GitHub
+            </a>
+          )}
           <a
             href={project.liveDemoUrl}
             target="_blank"
@@ -121,7 +135,7 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export default function HomePage() {
-  const featured = projects.filter((p) => p.featured).slice(0, 3);
+  const featured = projects.filter((p) => p.featured).slice(0, 4);
 
   return (
     <>
@@ -136,12 +150,18 @@ export default function HomePage() {
             Craft
           </p>
           <h1 className="hero-title editorial-display">
-            <span className="editorial-display-light">FULL STACK</span>
-            <span className="editorial-display-red">DEVELOPER.</span>
+            <span className="editorial-display-light">
+              FULL STACK
+            </span>
+            <span className="editorial-display-red">
+              DEVELOPER.
+            </span>
           </h1>
 
-          <p className="hero-accent mt-4 font-serif text-lg italic text-[#e7e1d8] sm:text-xl">
-            Thoughtfully built. Made to matter.
+          <p className="hero-accent mt-4 font-serif italic text-[#e7e1d8]">
+            <span className="hero-accent__typing">
+              Thoughtfully built. Made to matter.
+            </span>
           </p>
 
           <p className="hero-description mt-4 max-w-lg text-sm leading-7 text-neutral-400 sm:mt-5 sm:text-base sm:leading-8">
@@ -236,7 +256,8 @@ export default function HomePage() {
             Featured Projects
           </ScrollShimmerHeading>
           <p className="mt-3 max-w-lg text-xs leading-relaxed text-neutral-400 sm:mx-auto sm:text-sm">
-            A selection of my recent work spanning AI, SaaS, fintech, and beyond.
+            A selection of my recent work across e-commerce, digital
+            experiences, and entertainment.
           </p>
         </div>
 
@@ -278,84 +299,7 @@ export default function HomePage() {
         <SkillsGrid />
       </section>
 
-      {/* ─── Contact ─── */}
-      <section
-        id="contact"
-        className="mx-auto w-full max-w-6xl px-6 pb-24 pt-16 sm:px-8 lg:px-12"
-        aria-labelledby="contact-heading"
-      >
-        <div className="relative overflow-hidden rounded-3xl border border-[#302126] bg-[#0d0b0e]/90 px-6 py-12 sm:px-10 sm:py-16 lg:px-16">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full bg-[#D83A43]/10 blur-3xl"
-          />
-          <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-[0.24em] text-[#D83A43]">
-                Have a project in mind?
-              </p>
-              <h2
-                id="contact-heading"
-                className="editorial-heading mt-4 max-w-2xl text-4xl sm:text-5xl"
-              >
-                Let&apos;s Work Together.
-              </h2>
-              <p className="mt-4 max-w-xl leading-relaxed text-neutral-400">
-                I&apos;m open to discussing thoughtful digital products and
-                meaningful collaborations.
-              </p>
-            </div>
-
-            <a
-              href="mailto:samiryousri972@gmail.com"
-              className="inline-flex w-fit items-center gap-3 rounded-xl bg-[#D83A43] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_2px_16px_rgba(216,58,67,0.24)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#C92F3A]"
-            >
-              Get In Touch by Email
-              <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-
-          <div className="relative mt-10 grid gap-3 border-t border-white/10 pt-6 sm:grid-cols-3">
-            <a
-              href="https://github.com/samiryousr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-white/10 bg-black/20 p-4 transition-colors hover:border-[#D83A43]/50"
-            >
-              <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-neutral-500">
-                GitHub
-              </span>
-              <span className="mt-2 block text-sm font-medium text-neutral-200">
-                View my GitHub ↗
-              </span>
-            </a>
-            <a
-              href="mailto:samiryousri972@gmail.com"
-              className="rounded-xl border border-white/10 bg-black/20 p-4 transition-colors hover:border-[#D83A43]/50"
-            >
-              <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-neutral-500">
-                Email
-              </span>
-              <span className="mt-2 block break-all text-sm font-medium text-neutral-200">
-                Send me an email ↗
-              </span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/samir-yousri-9335692b5/?isSelfProfile=true"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-white/10 bg-black/20 p-4 transition-colors hover:border-[#D83A43]/50"
-            >
-              <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-neutral-500">
-                LinkedIn
-              </span>
-              <span className="mt-2 block text-sm font-medium text-neutral-200">
-                Samir Yousri ↗
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
+      <ContactSection />
     </>
   );
 }

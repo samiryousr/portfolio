@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from 'react';
 
-const query = '(min-width: 769px) and (pointer: fine)';
+const query = '(min-width: 769px) and (any-pointer: fine)';
 
 function subscribe(onChange: () => void) {
   const media = window.matchMedia(query);

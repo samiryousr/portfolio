@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import ThemeToggle from '@/components/ThemeToggle';
 
 const navLinks = [
   { href: '/#hero', label: 'Home' },
@@ -124,7 +123,6 @@ export default function Navbar() {
           >
             Hire Me
           </Link>
-          <ThemeToggle />
         </div>
 
         <button
@@ -184,9 +182,6 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
-            <li className="col-span-2">
-              <ThemeToggle />
-            </li>
           </ul>
         </div>
       </nav>

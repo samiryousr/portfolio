@@ -4,7 +4,6 @@
 import { Effect, EffectComposer, EffectPass, RenderPass } from 'postprocessing';
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import useFinePointer from '@/hooks/useFinePointer';
 import './PixelBlast.css';
 
 export interface PixelBlastProps {
@@ -368,7 +367,6 @@ export default function PixelBlast({
   edgeFade = 0.5,
   noiseAmount = 0
 }: PixelBlastProps) {
-  const hasFinePointer = useFinePointer();
   const containerRef = useRef<HTMLDivElement>(null);
   const visibilityRef = useRef({ visible: true });
   const speedRef = useRef(speed);
@@ -377,7 +375,7 @@ export default function PixelBlast({
   const prevConfigRef = useRef<any>(null);
 
   useEffect(() => {
-    if (!hasFinePointer || typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return;
     const container = containerRef.current;
     if (!container) return;
     speedRef.current = speed;
@@ -414,7 +412,9 @@ export default function PixelBlast({
       });
       renderer.domElement.style.width = '100%';
       renderer.domElement.style.height = '100%';
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setPixelRatio(
+        Math.min(window.devicePixelRatio || 1, window.innerWidth <= 768 ? 1 : 2),
+      );
       container.appendChild(renderer.domElement);
       if (transparent) renderer.setClearAlpha(0);
       else renderer.setClearColor(0x000000, 1);
@@ -620,7 +620,6 @@ export default function PixelBlast({
       threeRef.current = null;
     };
   }, [
-    hasFinePointer,
     antialias,
     liquid,
     noiseAmount,
@@ -642,8 +641,6 @@ export default function PixelBlast({
     color,
     speed
   ]);
-
-  if (!hasFinePointer) return null;
 
   return (
     <div

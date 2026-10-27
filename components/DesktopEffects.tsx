@@ -18,15 +18,15 @@ const CustomCursor = dynamic(() => import('@/components/CustomCursor'), {
 export default function DesktopEffects() {
   const hasFinePointer = useFinePointer();
 
-  if (!hasFinePointer) {
-    return <div aria-hidden="true" className="mobile-background-fallback" />;
-  }
-
   return (
     <>
       <InteractiveBackground />
-      <CursorSpotlight />
-      <CustomCursor />
+      {hasFinePointer && (
+        <>
+          <CursorSpotlight />
+          <CustomCursor />
+        </>
+      )}
     </>
   );
 }
