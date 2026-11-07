@@ -83,10 +83,14 @@ export default function CvPage() {
                   <a href={project.liveUrl} target="_blank" rel="noreferrer">
                     Live Demo
                   </a>
-                  <span aria-hidden="true">·</span>
-                  <a href={project.githubUrl} target="_blank" rel="noreferrer">
-                    GitHub
-                  </a>
+                  {'githubUrl' in project && (
+                    <>
+                      <span aria-hidden="true">·</span>
+                      <a href={project.githubUrl} target="_blank" rel="noreferrer">
+                        GitHub
+                      </a>
+                    </>
+                  )}
                 </p>
               </article>
             ))}

@@ -2,14 +2,13 @@ import type { Project } from '@/types';
 
 export const projects: Project[] = [
   {
-    id: 'neora-tech-store',
-    title: 'Neora – Tech Store',
+    id: 'cvg',
+    title: 'CVG — CV Builder',
     description:
-      'A modern technology store for browsing premium gadgets, accessories, and smart devices, with product categories, product pages, and cart and checkout interfaces.',
-    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Redux Toolkit', 'Firebase'],
-    image: '/projects/neora-tech-store.png',
-    githubUrl: 'https://github.com/samiryousr/tech-store',
-    liveDemoUrl: 'https://tech-store-amber-nine.vercel.app/',
+      'An Arabic-first CV builder with professional templates, live editing and preview, ATS-friendly layouts, and PDF export.',
+    tags: ['CV Builder', 'Arabic RTL', 'Live Preview', 'PDF Export'],
+    image: '/projects/cvg-preview.png',
+    liveDemoUrl: 'https://cvg-six.vercel.app/',
     featured: true,
   },
   {
@@ -23,14 +22,14 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 'zakhrafa-home',
-    title: 'Zakhrafa Home',
+    id: 'neora-tech-store',
+    title: 'Neora – Tech Store',
     description:
-      'An online home and furniture store with product search, department browsing, promotional offers, and category collections.',
-    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase', 'Cloudinary'],
-    image: '/projects/zakhrafa-home.png',
-    githubUrl: 'https://github.com/EL-3raby/zakhrafa-home',
-    liveDemoUrl: 'https://zakhrafa-home-j7zxtjh8j-zakhrafa.vercel.app/',
+      'A modern technology store for browsing premium gadgets, accessories, and smart devices, with product categories, product pages, and cart and checkout interfaces.',
+    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Redux Toolkit', 'Firebase'],
+    image: '/projects/neora-tech-store.png',
+    githubUrl: 'https://github.com/samiryousr/tech-store',
+    liveDemoUrl: 'https://tech-store-amber-nine.vercel.app/',
     featured: true,
   },
   {

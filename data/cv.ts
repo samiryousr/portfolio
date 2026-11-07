@@ -51,12 +51,18 @@ export const cvData = {
   ],
   projects: [
     {
-      name: 'Zakhrafa Home',
-      technologies: 'Next.js · TypeScript · Tailwind CSS · Supabase · Cloudinary',
+      name: 'CVG — CV Builder',
+      technologies: 'Arabic RTL · Live Preview · ATS-Friendly Templates · PDF Export',
       description:
-        'Furniture and home decor storefront that helps visitors explore products through searchable and filterable catalog views, category browsing, and promotional offers. The homepage brings together product, category, offer, and hero content from Supabase, while Cloudinary provides the product imagery for a cohesive shopping experience.',
-      liveUrl: 'https://zakhrafa-home-j7zxtjh8j-zakhrafa.vercel.app/',
-      githubUrl: 'https://github.com/EL-3raby/zakhrafa-home',
+        'Arabic-first CV builder with professional templates, live editing and preview, ATS-friendly layouts, and PDF export.',
+      liveUrl: 'https://cvg-six.vercel.app/',
+    },
+    {
+      name: 'FameX — Arcade Studio',
+      technologies: 'Next.js · Arabic RTL · Interactive UI · Digital Studio',
+      description:
+        'Arabic-first digital studio website with an arcade-inspired identity, presenting strategy, design, development, and growth services through an interactive experience.',
+      liveUrl: 'https://fame-x-two.vercel.app/#home',
     },
     {
       name: 'Tech Store',

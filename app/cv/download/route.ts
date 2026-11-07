@@ -160,15 +160,17 @@ function createCvPdf() {
         y,
       );
       projectLinkX += liveWidth + 9;
-      doc.font('Helvetica').fontSize(8.5).fillColor(MUTED);
-      doc.text('·', projectLinkX - 5, y);
-      addLink(
-        doc,
-        'GitHub',
-        project.githubUrl,
-        projectLinkX + 3,
-        y,
-      );
+      if ('githubUrl' in project) {
+        doc.font('Helvetica').fontSize(8.5).fillColor(MUTED);
+        doc.text('·', projectLinkX - 5, y);
+        addLink(
+          doc,
+          'GitHub',
+          project.githubUrl,
+          projectLinkX + 3,
+          y,
+        );
+      }
       y += 14;
     });
 

@@ -42,10 +42,10 @@ function ProjectCard({ project }: { project: Project }) {
         ) : (
           <span className="flex h-full flex-col justify-center bg-[radial-gradient(ellipse_at_75%_25%,rgba(216,58,67,0.28),transparent_45%),linear-gradient(135deg,#171114,#09090b_65%)] px-6">
             <span className="font-mono text-[9px] uppercase tracking-[0.28em] text-[#f17a82]">
-              Digital / Arcade Studio
+              Featured Project
             </span>
-            <span className="mt-1 text-2xl font-black tracking-[0.18em] text-white sm:text-3xl">
-              FAMEX
+            <span className="mt-1 text-2xl font-black tracking-[0.08em] text-white sm:text-3xl">
+              {project.title}
             </span>
           </span>
         )}
