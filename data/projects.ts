@@ -40,7 +40,7 @@ export const projects: Project[] = [
     tags: ['Next.js', 'React', 'Tailwind CSS', 'TMDB API'],
     image: '/projects/zoex-movie-world.jpg',
     githubUrl: 'https://github.com/samiryousr/Zoex',
-    liveDemoUrl: 'https://zoex-ewrvp1d9x-samir-s-projects13.vercel.app/',
+    liveDemoUrl: 'https://zoex-samir-s-projects13.vercel.app/',
     featured: true,
   },
 ];

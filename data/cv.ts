@@ -78,7 +78,7 @@ export const cvData = {
       technologies: 'Next.js · React · Tailwind CSS · TMDB API',
       description:
         'Movie and TV discovery experience for popular, animated, and genre-based titles, with search and title detail views backed by TMDB data. Paginated API routes support browsing, alongside trailer selection and browser-stored favorites for a practical discovery flow.',
-      liveUrl: 'https://zoex-ewrvp1d9x-samir-s-projects13.vercel.app/',
+      liveUrl: 'https://zoex-samir-s-projects13.vercel.app/',
       githubUrl: 'https://github.com/samiryousr/Zoex',
     },
   ],

@@ -15,7 +15,11 @@ My personal developer portfolio built with Next.js, TypeScript, and Tailwind CSS
 ```bash
 npm install
 npm run dev
---
-
 ```
 
+## Contact email setup
+
+The contact form sends messages through Formspree. Configure the recipient
+email address (`samiryousri972@gmail.com`) and verify the form in the Formspree
+dashboard for form ID `mzerzrdv`. No email credentials are required in the
+deployment environment.

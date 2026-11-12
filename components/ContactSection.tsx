@@ -2,26 +2,53 @@
 
 import { useRef, useState } from 'react';
 
-const emailAddress = 'samiryousri972@gmail.com';
-
 const cardClassName =
   'rounded-xl border border-white/10 bg-black/20 p-4 transition-colors hover:border-[#D83A43]/50';
 
 export default function ContactSection() {
   const [message, setMessage] = useState('');
+  const [email, setEmail] = useState('');
   const [isComposing, setIsComposing] = useState(false);
-  const messageInputRef = useRef<HTMLInputElement>(null);
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState('');
+  const messageInputRef = useRef<HTMLTextAreaElement>(null);
 
   const focusMessageInput = () => {
     setIsComposing(true);
+    setStatus('');
     requestAnimationFrame(() => messageInputRef.current?.focus());
   };
 
-  const sendEmail = (event: React.FormEvent<HTMLFormElement>) => {
+  const sendEmail = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const subject = encodeURIComponent('Project inquiry');
-    const body = encodeURIComponent(message.trim());
-    window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+    setIsSending(true);
+    setStatus('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, message }),
+      });
+      const result: { error?: string } = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'We could not send your message.');
+      }
+
+      setEmail('');
+      setMessage('');
+      setIsComposing(false);
+      setStatus('Your message was sent successfully. Thank you!');
+    } catch (error) {
+      setStatus(
+        error instanceof Error
+          ? error.message
+          : 'We could not send your message. Please try again.',
+      );
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -54,27 +81,41 @@ export default function ContactSection() {
 
           <form
             onSubmit={sendEmail}
-            className={`flex w-full flex-col gap-2 sm:flex-row lg:w-auto ${
-              isComposing ? 'sm:min-w-[26rem]' : ''
+            className={`flex w-full flex-col gap-2 lg:w-auto ${
+              isComposing ? 'lg:min-w-[26rem]' : ''
             }`}
           >
             {isComposing ? (
               <>
                 <input
+                  type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder="Your email address"
+                  aria-label="Your email address"
+                  autoComplete="email"
+                  maxLength={254}
+                  className="min-h-12 min-w-0 rounded-xl border border-white/15 bg-black/40 px-4 text-sm text-white outline-none transition-colors placeholder:text-neutral-500 focus:border-[#D83A43]"
+                  required
+                />
+                <textarea
                   ref={messageInputRef}
-                  type="text"
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
                   placeholder="Tell me about your project"
                   aria-label="Your message"
-                  className="min-h-12 min-w-0 flex-1 rounded-xl border border-white/15 bg-black/40 px-4 text-sm text-white outline-none transition-colors placeholder:text-neutral-500 focus:border-[#D83A43]"
+                  maxLength={5000}
+                  rows={3}
+                  className="min-w-0 rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-sm text-white outline-none transition-colors placeholder:text-neutral-500 focus:border-[#D83A43]"
                   required
                 />
                 <button
                   type="submit"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#D83A43] px-5 text-sm font-semibold text-white shadow-[0_2px_16px_rgba(216,58,67,0.24)] transition-colors hover:bg-[#C92F3A]"
+                  disabled={isSending}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#D83A43] px-5 text-sm font-semibold text-white shadow-[0_2px_16px_rgba(216,58,67,0.24)] transition-colors hover:bg-[#C92F3A] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Send email <span aria-hidden="true">↗</span>
+                  {isSending ? 'Sending...' : 'Send message'}{' '}
+                  <span aria-hidden="true">↗</span>
                 </button>
               </>
             ) : (
@@ -85,6 +126,15 @@ export default function ContactSection() {
               >
                 Get In Touch by Email <span aria-hidden="true">↗</span>
               </button>
+            )}
+            {status && (
+              <p
+                role="status"
+                aria-live="polite"
+                className="text-sm text-neutral-300"
+              >
+                {status}
+              </p>
             )}
           </form>
         </div>
